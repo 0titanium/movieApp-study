@@ -27,7 +27,9 @@ function LandingPage() {
   }, []);
 
   const loadMoreItems = () => {
-    const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${CurrentPage+1}`;
+    const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${
+      CurrentPage + 1
+    }`;
     fetchMovies(endpoint);
   };
 
@@ -53,6 +55,7 @@ function LandingPage() {
             Movies.map((movie, index) => (
               <React.Fragment key={index}>
                 <GridCards
+                  landingPage
                   image={
                     movie.poster_path
                       ? `${IMAGE_BASE_URL}original${movie.poster_path}`
