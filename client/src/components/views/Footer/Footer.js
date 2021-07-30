@@ -1,7 +1,24 @@
 import React from "react";
+import { CopyrightOutlined } from "@ant-design/icons";
 
 function Footer() {
-  return <div></div>;
+  return (
+    <div
+      style={{
+        height: "80px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: "1rem",
+      }}
+    >
+      <p>
+        {" "}
+        <CopyrightOutlined /> Movie App Study 
+      </p>
+    </div>
+  );
 }
 
 export default Footer;

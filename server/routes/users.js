@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { User } = require("../models/User");
 const { auth } = require("../middleware/auth");
+const { response } = require("express");
 
 // register route
 router.post("/register", (req, res) => {
@@ -53,6 +54,7 @@ router.post("/login", (req, res) => {
 
         res
           .cookie("x_auth", user.token)
+          .cookie("user_id", user._id)
           .status(200)
           .json({ loginSuccess: true, userId: user._id });
       });
@@ -86,6 +88,8 @@ router.post("/logout", auth, (req, res) => {
     if (err) {
       return res.json({ logoutSuccess: false, err });
     }
+    res.clearCookie("x_auth");
+    res.clearCookie("user_id");
     return res.status(200).send({ logoutSuccess: true });
   });
 });
