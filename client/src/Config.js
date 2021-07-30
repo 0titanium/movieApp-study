@@ -1,5 +1,6 @@
 // server routes
 export const USER_SERVER = "/api/users";
+export const FAVORITE_SERVER = "/api/favorite";
 
 export const API_URL = "https://api.themoviedb.org/3/";
 export const API_KEY = "7257ff01287b7b3b178fbb342a40da78";
