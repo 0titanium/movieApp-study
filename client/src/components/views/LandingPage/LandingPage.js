@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 
 function LandingPage(props) {
   const dispatch = useDispatch();
+  
   const onClickHandler = () => {
     dispatch(logoutUser()).then((response) => {
       if (response.payload.logoutSuccess) {
