@@ -4,6 +4,8 @@ const port = 5000;
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const config = require("./config/key");
+const userRouter = require("./routes/users");
+const favoriteRouter = require("./routes/favorite");
 
 // application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -29,8 +31,8 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.use("/api/users", require("./routes/users"));
-// app.use("/api/favorite", require("./routes/favorite"));
+app.use("/api/users", userRouter);
+app.use("/api/favorite", favoriteRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

@@ -19,15 +19,15 @@ function Favorite(props) {
   };
 
   useEffect(() => {
-    // Axios.post("/api/favorite/favoriteNumber", variables).then((response) => {
-    //   console.log(response.data);
-    //   setFavoriteNumber(response.data.favoriteNumber);
-    //   if (response.data.success) {
-    //     console.log(response.data);
-    //   } else {
-    //     alert("숫자 정보를 가져오는데 실패 했습니다.");
-    //   }
-    // });
+    Axios.post("/api/favorite/favoriteNumber", variables).then((response) => {
+      console.log(response.data);
+      setFavoriteNumber(response.data.favoriteNumber);
+      if (response.data.success) {
+        console.log(response.data);
+      } else {
+        alert("숫자 정보를 가져오는데 실패 했습니다.");
+      }
+    });
 
     // Axios.post("/api/favorite/favorited", variables).then((response) => {
     //   if (response.data.success) {

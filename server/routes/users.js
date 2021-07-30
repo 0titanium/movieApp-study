@@ -51,10 +51,10 @@ router.post("/login", (req, res) => {
 
         // 토큰을 저장 (쿠키, 세션, 로컬스토리지등 어디가 제일 안전한지는 논란)
         // 여기선 쿠키에 저장
-
+        
         res
           .cookie("x_auth", user.token)
-          .cookie("user_id", user._id)
+          .cookie("user_id", user._id.toString())
           .status(200)
           .json({ loginSuccess: true, userId: user._id });
       });

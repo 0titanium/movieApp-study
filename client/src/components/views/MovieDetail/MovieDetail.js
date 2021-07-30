@@ -32,7 +32,7 @@ function MovieDetail(props) {
   //   const movieVariable = {
   //     movieId: movieId,
   //   };
-  const userId = getCookie("user_id", document.cookie.toString());
+  const userId = getCookie("user_id", document.cookie);
   console.log(userId);
   
   const fetchDetailInfo = (endpoint) => {
