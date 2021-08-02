@@ -30,7 +30,7 @@ landing page, register page, login page, logout은 현재까지 잘 작동하고
 ***
 
 
-server /api/favorite에서 문제가 있는 것 같다.
+-server /api/favorite에서 문제가 있는 것 같다.
 
 
 로컬스토리지를 사용하지 않고 유저 아이디를 가져오고 싶다.
@@ -39,7 +39,9 @@ server /api/favorite에서 문제가 있는 것 같다.
 mongodb의 objectId와 쿠키에 저장된 user_id가 일치하지 않는 것 같다.
 
 
-해결책은? 
+
+
+-해결책은? 
 
 -> user_id를 받을 때 document.cookie.toString()이 아니라
 
@@ -50,15 +52,19 @@ mongodb의 objectId와 쿠키에 저장된 user_id가 일치하지 않는 것 �
 ***
 
 
-favorite button과 db에 담는 것 까지 완료했다.
+-favorite button과 db에 담는 것 까지 완료했다.
 
-구조적인(?) 문제가 있다. favorite 기능은 유저가 로그인 했다고 가정하고 만들어진 것 같다.
+
+
+-구조적인(?) 문제가 있다. favorite 기능은 유저가 로그인 했다고 가정하고 만들어진 것 같다.
 
 로그인하지않은 유저가 들어오면 user_id가 없으므로 서버에 보내지도 못하고 서버도 응답할 수 없다.
 
 클라이언트에서 로그인 하지 않은 유저에 대한 처리를 해줘야 한다.
 
-아마 auth()를 이용한 처리가 될 것이다.
+
+
+-아마 auth()를 이용한 처리가 될 것이다.
 
 
 auth() === true ? origin : alert("로그인 하세요");
@@ -66,10 +72,10 @@ auth() === true ? origin : alert("로그인 하세요");
 ***
 
 
-movieDetail - favorite에서 post error는 user_id로 해결했다.
+-movieDetail - favorite에서 post error는 user_id로 해결했다.
 
 
-FavoritePage에서 Unhandled Rejection (TypeError): Cannot read property 'map' of undefined가
+-FavoritePage에서 Unhandled Rejection (TypeError): Cannot read property 'map' of undefined가
 
 
 뜬다. 데이터가 오기 전에 렌더링하려고해서 그런듯하다.
@@ -77,7 +83,7 @@ FavoritePage에서 Unhandled Rejection (TypeError): Cannot read property 'map' o
 -> Favorites.map()을 {Favorites && Favorites.map()}으로 바꿨다. 
 
 
-FavoritePage에서 tbody내용을 따로 빼주니까 또 에러가 생겼다.
+-FavoritePage에서 tbody내용을 따로 빼주니까 또 에러가 생겼다.
 
 favorite list에서 한 아이템을 삭제하면 TypeError: Cannot read property 'map' of undefined 메세지가
 
@@ -87,6 +93,7 @@ favorite list에서 한 아이템을 삭제하면 TypeError: Cannot read propert
 
    해결되었다.
 
-좋아요, 싫어요, 댓글, 대댓글 기능은 다른 강의에서 듣고 추가하기.
+
+-좋아요, 싫어요, 댓글, 대댓글 기능은 다른 강의에서 듣고 추가하기.
 
 2021-08-02

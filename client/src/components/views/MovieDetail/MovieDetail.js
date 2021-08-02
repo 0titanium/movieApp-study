@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { List, Avatar, Row, Col, Button } from "antd";
+import { Row, Button } from "antd";
 import { API_URL, API_KEY, IMAGE_BASE_URL, IMAGE_SIZE } from "../../../Config";
 import GridCards from "../commons/GridCards";
 import MainImage from "../LandingPage/Sections/MainImage";
