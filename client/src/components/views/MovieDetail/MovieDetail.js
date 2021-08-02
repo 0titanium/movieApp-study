@@ -6,21 +6,6 @@ import MainImage from "../LandingPage/Sections/MainImage";
 import MovieInfo from "./Sections/MovieInfo";
 import Favorite from "./Sections/Favorite";
 
-/*
-document.cookie - name=value
-name에 맞는 string을 찾는다.
-있으면 string index를 저장한다.
-index 5(name=) 이후부터 마지막까지의 스트링을 리턴한다.
-*/
-const getCookie = (name, cookies) => {
-  const searchName = name + "=";
-  const searchNameLength = searchName.length;
-  const nameIndexStart = cookies.indexOf(searchName);
-  const val = cookies.substring(nameIndexStart+searchNameLength);
-
-  return val;
-}
-
 function MovieDetail(props) {
   const movieId = props.match.params.movieId;
   const [Movie, setMovie] = useState([]);
@@ -32,6 +17,22 @@ function MovieDetail(props) {
   //   const movieVariable = {
   //     movieId: movieId,
   //   };
+
+  /*
+  document.cookie - name=value
+  name에 맞는 string을 찾는다.
+  있으면 string index를 저장한다.
+  index 5(name=) 이후부터 마지막까지의 스트링을 리턴한다.
+  */
+  const getCookie = (name, cookies) => {
+    const searchName = name + "=";
+    const searchNameLength = searchName.length;
+    const nameIndexStart = cookies.indexOf(searchName);
+    const Cookieval = cookies.substring(nameIndexStart + searchNameLength);
+
+    return Cookieval;
+  };
+
   const userId = getCookie("user_id", document.cookie);
   
   const fetchDetailInfo = (endpoint) => {
@@ -81,11 +82,7 @@ function MovieDetail(props) {
       {/* Body */}
       <div style={{ width: "85%", margin: "1rem auto" }}>
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <Favorite
-            movieInfo={Movie}
-            movieId={movieId}
-            userFrom={userId}
-          />
+          <Favorite movieInfo={Movie} movieId={movieId} userFrom={userId} />
         </div>
         {/* Movie Info */}
         {!LoadingForMovie ? <MovieInfo movie={Movie} /> : <div>loading...</div>}

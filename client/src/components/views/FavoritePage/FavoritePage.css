@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+.favoriteTable {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.favoriteInfo {
+    border: 1px solid #333333;
+    text-align: left;
+    padding: 8px;
+}
+
+.favoriteRow:nth-child(even) {
+    background-color: #dddddd;
+}

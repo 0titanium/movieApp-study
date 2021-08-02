@@ -62,3 +62,31 @@ favorite button과 db에 담는 것 까지 완료했다.
 
 
 auth() === true ? origin : alert("로그인 하세요");
+
+***
+
+
+movieDetail - favorite에서 post error는 user_id로 해결했다.
+
+
+FavoritePage에서 Unhandled Rejection (TypeError): Cannot read property 'map' of undefined가
+
+
+뜬다. 데이터가 오기 전에 렌더링하려고해서 그런듯하다.
+
+-> Favorites.map()을 {Favorites && Favorites.map()}으로 바꿨다. 
+
+
+FavoritePage에서 tbody내용을 따로 빼주니까 또 에러가 생겼다.
+
+favorite list에서 한 아이템을 삭제하면 TypeError: Cannot read property 'map' of undefined 메세지가
+
+뜬다. list에 하나가 들어있든 여러개가 들어있든 뜬다. 새로고침하면 잘 나온다.
+
+-> 서버에서 favorite list를 받아오는 함수를 만들어서 처음 페이지 진입할 때, 리스트에서 삭제할 때 실행하도록 하니까
+
+   해결되었다.
+
+좋아요, 싫어요, 댓글, 대댓글 기능은 다른 강의에서 듣고 추가하기.
+
+2021-08-02

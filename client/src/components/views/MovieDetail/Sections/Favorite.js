@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
-import {FAVORITE_SERVER} from "../../../../Config";
+import { FAVORITE_SERVER } from "../../../../Config";
 
 import { Button } from "antd";
 
@@ -29,47 +29,57 @@ function Favorite(props) {
   };
 
   useEffect(() => {
-    Axios.post(`${FAVORITE_SERVER}/favoriteNumber`, variables).then((response) => {
-      console.log(response.data);
-      setFavoriteNumber(response.data.favoriteNumber);
-      if (response.data.success) {
+    Axios.post(`${FAVORITE_SERVER}/favoriteNumber`, variables).then(
+      (response) => {
         console.log(response.data);
-      } else {
-        alert("숫자 정보를 가져오는 것에 실패 했습니다.");
+        setFavoriteNumber(response.data.favoriteNumber);
+        if (response.data.success) {
+          console.log(response.data);
+        } else {
+          alert("숫자 정보를 가져오는 것에 실패 했습니다.");
+        }
       }
-    });
+    );
 
-    Axios.post(`${FAVORITE_SERVER}/favorited`, variables).then((response) => {
-      console.log(response.data);
-      if (response.data.success) {
-        setFavorited(response.data.favorited);
-      } else {
-        alert("정보를 가져오는 것에 실패 했습니다.");
-      }
-    });
+    if (userFrom !== "") {
+      Axios.post(`${FAVORITE_SERVER}/favorited`, variables).then((response) => {
+        console.log(response.data);
+        if (response.data.success) {
+          setFavorited(response.data.favorited);
+        } else {
+          alert("정보를 가져오는 것에 실패 했습니다.");
+        }
+      });
+    }
   }, []);
 
   const onClickFavorite = () => {
-    if (Favorited) {
-      Axios.post(`${FAVORITE_SERVER}/removeFromFavorite`, variables).then(
-        (response) => {
-          if (response.data.success) {
-            setFavoriteNumber(FavoriteNumber - 1);
-            setFavorited(!Favorited);
-          } else {
-            alert("Favorite 리스트에서 지우는 것에 실패했습니다.");
-          }
-        }
-      );
+    if (userFrom === "") {
+      alert("로그인이 필요합니다.");
     } else {
-      Axios.post(`${FAVORITE_SERVER}/addToFavorite`, variables).then((response) => {
-        if (response.data.success) {
-          setFavoriteNumber(FavoriteNumber + 1);
-          setFavorited(!Favorited);
-        } else {
-          alert("Favorite 리스트에 추가하는 것에 실패했습니다.");
-        }
-      });
+      if (Favorited) {
+        Axios.post(`${FAVORITE_SERVER}/removeFromFavorite`, variables).then(
+          (response) => {
+            if (response.data.success) {
+              setFavoriteNumber(FavoriteNumber - 1);
+              setFavorited(!Favorited);
+            } else {
+              alert("Favorite 리스트에서 지우는 것에 실패했습니다.");
+            }
+          }
+        );
+      } else {
+        Axios.post(`${FAVORITE_SERVER}/addToFavorite`, variables).then(
+          (response) => {
+            if (response.data.success) {
+              setFavoriteNumber(FavoriteNumber + 1);
+              setFavorited(!Favorited);
+            } else {
+              alert("Favorite 리스트에 추가하는 것에 실패했습니다.");
+            }
+          }
+        );
+      }
     }
   };
 
