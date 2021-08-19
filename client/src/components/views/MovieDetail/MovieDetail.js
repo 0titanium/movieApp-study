@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Row, Button } from "antd";
+import { Row, Button, Col } from "antd";
 import { API_URL, API_KEY, IMAGE_BASE_URL, IMAGE_SIZE } from "../../../Config";
 import GridCards from "../commons/GridCards";
 import MainImage from "../LandingPage/Sections/MainImage";
 import MovieInfo from "./Sections/MovieInfo";
 import Favorite from "./Sections/Favorite";
+import Comments from "./Sections/Comments";
+import { getCookie } from "../../../utils/getCookie";
+import LikeDislikes from "./Sections/LikesDislikes";
 
 function MovieDetail(props) {
   const movieId = props.match.params.movieId;
@@ -18,23 +21,8 @@ function MovieDetail(props) {
   //     movieId: movieId,
   //   };
 
-  /*
-  document.cookie - name=value
-  name에 맞는 string을 찾는다.
-  있으면 string index를 저장한다.
-  index 5(name=) 이후부터 마지막까지의 스트링을 리턴한다.
-  */
-  const getCookie = (name, cookies) => {
-    const searchName = name + "=";
-    const searchNameLength = searchName.length;
-    const nameIndexStart = cookies.indexOf(searchName);
-    const Cookieval = cookies.substring(nameIndexStart + searchNameLength);
-
-    return Cookieval;
-  };
-
   const userId = getCookie("user_id", document.cookie);
-  
+
   const fetchDetailInfo = (endpoint) => {
     fetch(endpoint)
       .then((result) => result.json())
@@ -82,6 +70,7 @@ function MovieDetail(props) {
       {/* Body */}
       <div style={{ width: "85%", margin: "1rem auto" }}>
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <LikeDislikes />
           <Favorite movieInfo={Movie} movieId={movieId} userFrom={userId} />
         </div>
         {/* Movie Info */}
@@ -104,6 +93,7 @@ function MovieDetail(props) {
                 (cast, index) =>
                   cast.profile_path && (
                     <GridCards
+                      key={index}
                       image={
                         cast.profile_path
                           ? `${IMAGE_BASE_URL}w500${cast.profile_path}`
@@ -119,6 +109,12 @@ function MovieDetail(props) {
           </Row>
         )}
         <br />
+
+        <Comments
+            // CommentLists={CommentLists}
+            // postId={movieId}
+            // refreshFunction={updateComment}
+          />
       </div>
     </div>
   );

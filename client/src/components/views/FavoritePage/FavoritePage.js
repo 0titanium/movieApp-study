@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { IMAGE_BASE_URL, FAVORITE_SERVER } from "../../../Config";
-
+import { getCookie } from "../../../utils/getCookie";
 import "./FavoritePage.css";
 import { Button, Popover } from "antd";
 
 function FavoritePage() {
-  const getCookie = (name, cookies) => {
-    const searchName = name + "=";
-    const searchNameLength = searchName.length;
-    const nameIndexStart = cookies.indexOf(searchName);
-    const Cookieval = cookies.substring(nameIndexStart + searchNameLength);
-
-    return Cookieval;
-  };
 
   const userId = getCookie("user_id", document.cookie);
 
