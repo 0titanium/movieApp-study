@@ -8,21 +8,24 @@ import Favorite from "./Sections/Favorite";
 import Comments from "./Sections/Comments";
 import { getCookie } from "../../../utils/getCookie";
 import LikeDislikes from "./Sections/LikesDislikes";
+import Axios from "axios";
+import { COMMENT_SERVER } from "../../../Config";
 
 function MovieDetail(props) {
   const movieId = props.match.params.movieId;
   const [Movie, setMovie] = useState([]);
   const [Casts, setCasts] = useState([]);
-  //   const [CommentLists, setCommentLists] = useState([]);
+  const [CommentLists, setCommentLists] = useState([]);
   const [LoadingForMovie, setLoadingForMovie] = useState(true);
   const [LoadingForCasts, setLoadingForCasts] = useState(true);
   const [ActorToggle, setActorToggle] = useState(false);
-  //   const movieVariable = {
-  //     movieId: movieId,
-  //   };
+  const movieVariable = {
+    movieId: movieId,
+  };
 
   const userId = getCookie("user_id", document.cookie);
 
+  // movie Info
   const fetchDetailInfo = (endpoint) => {
     fetch(endpoint)
       .then((result) => result.json())
@@ -44,10 +47,31 @@ function MovieDetail(props) {
       .catch((error) => console.error("Error:", error));
   };
 
+  const updateComment = (newComment) => {
+    // setCommentLists(CommentLists.concat(newComment)); // add new comment
+    fetchComments(movieVariable); // get all comments again
+  };
+
+  // get comments
+
+  const fetchComments = (movieVariable) => {
+    Axios.post(`${COMMENT_SERVER}/getComments`, movieVariable).then(
+      (response) => {
+        if (response.data.success) {
+          console.log("response.data.comments", response.data.comments);
+          setCommentLists(response.data.comments);
+        } else {
+          alert("댓글을 불러오는데 실패했습니다.");
+        }
+      }
+    );
+  };
+
   useEffect(() => {
     console.log(movieId);
     let endpointForMovieInfo = `${API_URL}movie/${movieId}?api_key=${API_KEY}&language=en-US`;
     fetchDetailInfo(endpointForMovieInfo);
+    fetchComments(movieVariable);
   }, []);
 
   const toggleActorView = () => {
@@ -70,7 +94,12 @@ function MovieDetail(props) {
       {/* Body */}
       <div style={{ width: "85%", margin: "1rem auto" }}>
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <LikeDislikes />
+          <LikeDislikes
+            postId={movieId}
+            userId={userId}
+            userTo={movieId}
+            isLogin={userId !== "" ? true : false}
+          />
           <Favorite movieInfo={Movie} movieId={movieId} userFrom={userId} />
         </div>
         {/* Movie Info */}
@@ -111,10 +140,10 @@ function MovieDetail(props) {
         <br />
 
         <Comments
-            // CommentLists={CommentLists}
-            // postId={movieId}
-            // refreshFunction={updateComment}
-          />
+          CommentLists={CommentLists}
+          postId={movieId}
+          refreshFunction={updateComment}
+        />
       </div>
     </div>
   );

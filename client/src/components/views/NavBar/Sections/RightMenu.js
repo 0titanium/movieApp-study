@@ -1,14 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { Menu } from "antd";
-// import axios from "axios";
-// import { USER_SERVER } from "../../../../Config";
 import { withRouter } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { logoutUser } from "../../../../_actions/user_action";
+import { getCookie } from "../../../../utils/getCookie";
 
 function RightMenu(props) {
-  const user = useSelector((state) => state.user);
+  const userId = getCookie("user_id", document.cookie);
   const dispatch = useDispatch();
 
   const logoutHandler = () => {
@@ -21,7 +20,7 @@ function RightMenu(props) {
     });
   };
 
-  if (user.userData && !user.userData.isAuth) {
+  if (!userId) {
     return (
       <Menu mode={props.mode}>
         <Menu.Item key="mail">

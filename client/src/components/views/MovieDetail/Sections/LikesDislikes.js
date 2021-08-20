@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Tooltip } from "antd";
 import Axios from "axios";
-// import { LIKE_SERVER } from "../../../../Config";
+import { LIKE_SERVER } from "../../../../Config";
 import { getCookie } from "../../../../utils/getCookie";
 import {
   LikeOutlined,
@@ -21,119 +21,119 @@ function LikeDislikes(props) {
   let variable = {};
 
   // video like, reply like, not login user
-//   if (props.video) {
-//     if (props.userId === "" || props.userId === userId) {
-//       variable = { videoId: props.videoId };
-//     } else {
-//       variable = { videoId: props.videoId, userId: props.userId };
-//     }
-//   } else {
-//     if (props.userId === "") {
-//       variable = { commentId: props.commentId };
-//     } else {
-//       variable = { commentId: props.commentId, userId: props.userId };
-//     }
-//   }
+  if (props.postId) {
+    if (props.userId === "" || props.userId === userId) {
+      variable = { postId: props.postId };
+    } else {
+      variable = { postId: props.postId, userId: props.userId };
+    }
+  } else {
+    if (props.userId === "") {
+      variable = { commentId: props.commentId };
+    } else {
+      variable = { commentId: props.commentId, userId: props.userId };
+    }
+  }
 
-// //   const fetchLikesNum = (variable) => {
-// //     Axios.post(`${LIKE_SERVER}/getLikes`, variable).then((response) => {
-// //       if (response.data.success) {
-// //         console.log(response.data);
-// //         // 좋아요 수 세팅
-// //         setLikes(response.data.likes.length);
+  const fetchLikesNum = (variable) => {
+    Axios.post(`${LIKE_SERVER}/getLikes`, variable).then((response) => {
+      if (response.data.success) {
+        console.log(response.data);
+        // 좋아요 수 세팅
+        setLikes(response.data.likes.length);
 
-// //         response.data.likes.map((like) => {
-// //           if (like.userId === props.userId) {
-// //             setLikeAction("liked");
-// //           }
-// //         });
-// //       } else {
-// //         alert("좋아요 숫자를 불러오는데 실패했습니다.");
-// //       }
-// //     });
-// //   };
+        response.data.likes.map((like) => {
+          if (like.userId === props.userId) {
+            setLikeAction("liked");
+          }
+        });
+      } else {
+        alert("좋아요 숫자를 불러오는데 실패했습니다.");
+      }
+    });
+  };
 
-//   const fetchDislikesNum = (variable) => {
-//     Axios.post(`${LIKE_SERVER}/getDislikes`, variable).then((response) => {
-//       if (response.data.success) {
-//         console.log(response.data);
-//         // 싫어요 수 세팅
-//         setDislikes(response.data.dislikes.length);
-//         response.data.dislikes.map((dislike) => {
-//           if (dislike.userId === props.userId) {
-//             setDislikeAction("disliked");
-//           }
-//         });
-//       } else {
-//         alert("싫어요 숫자를 불러오는데 실패했습니다.");
-//       }
-//     });
-//   };
+  const fetchDislikesNum = (variable) => {
+    Axios.post(`${LIKE_SERVER}/getDislikes`, variable).then((response) => {
+      if (response.data.success) {
+        console.log(response.data);
+        // 싫어요 수 세팅
+        setDislikes(response.data.dislikes.length);
+        response.data.dislikes.map((dislike) => {
+          if (dislike.userId === props.userId) {
+            setDislikeAction("disliked");
+          }
+        });
+      } else {
+        alert("싫어요 숫자를 불러오는데 실패했습니다.");
+      }
+    });
+  };
 
-//   const fetchLike = (variable) => {
-//     Axios.post(`${LIKE_SERVER}/upLike`, variable).then((response) => {
-//       if (response.data.success) {
-//         console.log(response.data);
-//         setLikes(Likes + 1);
-//         setLikeAction("liked");
+  const fetchLike = (variable) => {
+    Axios.post(`${LIKE_SERVER}/upLike`, variable).then((response) => {
+      if (response.data.success) {
+        console.log(response.data);
+        setLikes(Likes + 1);
+        setLikeAction("liked");
 
-//         // 싫어요를 누른 경우
+        // 싫어요를 누른 경우
 
-//         if (DislikeAction !== null) {
-//           setDislikeAction(null);
-//           setDislikes(Dislikes - 1);
-//         }
-//       } else {
-//         alert("좋아요 숫자를 올리는데 실패했습니다.");
-//       }
-//     });
-//   };
+        if (DislikeAction !== null) {
+          setDislikeAction(null);
+          setDislikes(Dislikes - 1);
+        }
+      } else {
+        alert("좋아요 숫자를 올리는데 실패했습니다.");
+      }
+    });
+  };
 
-//   const fetchUnlike = (variable) => {
-//     Axios.post(`${LIKE_SERVER}/unLike`, variable).then((response) => {
-//       if (response.data.success) {
-//         console.log(response.data);
-//         setLikes(Likes - 1);
-//         setLikeAction(null);
-//       } else {
-//         alert("좋아요 숫자를 내리는데 실패했습니다.");
-//       }
-//     });
-//   };
+  const fetchUnlike = (variable) => {
+    Axios.post(`${LIKE_SERVER}/unLike`, variable).then((response) => {
+      if (response.data.success) {
+        console.log(response.data);
+        setLikes(Likes - 1);
+        setLikeAction(null);
+      } else {
+        alert("좋아요 숫자를 내리는데 실패했습니다.");
+      }
+    });
+  };
 
-//   const fetchDisLike = (variable) => {
-//     Axios.post(`${LIKE_SERVER}/upDislike`, variable).then((response) => {
-//       if (response.data.success) {
-//         console.log(response.data);
-//         setDislikes(Dislikes + 1);
-//         setDislikeAction("disliked");
+  const fetchDisLike = (variable) => {
+    Axios.post(`${LIKE_SERVER}/upDislike`, variable).then((response) => {
+      if (response.data.success) {
+        console.log(response.data);
+        setDislikes(Dislikes + 1);
+        setDislikeAction("disliked");
 
-//         // 싫어요를 이미 누른 경우
-//         if (LikeAction !== null) {
-//           setLikeAction(null);
-//           setLikes(Likes - 1);
-//         }
-//       } else {
-//         alert("싫어요 숫자를 올리는데 실패했습니다.");
-//       }
-//     });
-//   };
+        // 싫어요를 이미 누른 경우
+        if (LikeAction !== null) {
+          setLikeAction(null);
+          setLikes(Likes - 1);
+        }
+      } else {
+        alert("싫어요 숫자를 올리는데 실패했습니다.");
+      }
+    });
+  };
 
-//   const fetchUnDislike = (variable) => {
-//     Axios.post(`${LIKE_SERVER}/unDislike`, variable).then((response) => {
-//       if (response.data.success) {
-//         console.log(response.data);
-//         setDislikes(Dislikes - 1);
-//         setDislikeAction(null);
-//       } else {
-//         alert("싫어요 숫자를 내리는데 실패했습니다.");
-//       }
-//     });
-//   };
+  const fetchUnDislike = (variable) => {
+    Axios.post(`${LIKE_SERVER}/unDislike`, variable).then((response) => {
+      if (response.data.success) {
+        console.log(response.data);
+        setDislikes(Dislikes - 1);
+        setDislikeAction(null);
+      } else {
+        alert("싫어요 숫자를 내리는데 실패했습니다.");
+      }
+    });
+  };
 
   useEffect(() => {
-    // fetchLikesNum(variable);
-    // fetchDislikesNum(variable);
+    fetchLikesNum(variable);
+    fetchDislikesNum(variable);
   }, []);
 
   const onLike = () => {
@@ -142,9 +142,9 @@ function LikeDislikes(props) {
     } else if (props.userTo._id === userId) {
     } else {
       if (LikeAction === null) {
-        // fetchLike(variable);
+        fetchLike(variable);
       } else {
-        // fetchUnlike(variable);
+        fetchUnlike(variable);
       }
     }
   };
@@ -155,9 +155,9 @@ function LikeDislikes(props) {
     } else if (props.userTo._id === userId) {
     } else {
       if (DislikeAction === null) {
-        // fetchDisLike(variable);
+        fetchDisLike(variable);
       } else {
-        // fetchUnDislike(variable);
+        fetchUnDislike(variable);
       }
     }
   };

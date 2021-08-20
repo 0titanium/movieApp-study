@@ -13,17 +13,17 @@ function Comments(props) {
 
   const userId = getCookie("user_id", document.cookie);
   
-//   const fetchComments = (variables) => {
-//     Axios.post(`${COMMENT_SERVER}/saveComment`, variables).then((response) => {
-//       if (response.data.success) {
-//         console.log(response.data.id);
-//         setComment("");
-//         props.refreshFunction(response.data.id);
-//       } else {
-//         alert("댓글 작성에 실패했습니다.");
-//       }
-//     });
-//   };
+  const fetchComments = (variables) => {
+    Axios.post(`${COMMENT_SERVER}/saveComment`, variables).then((response) => {
+      if (response.data.success) {
+        console.log(response.data.id);
+        setComment("");
+        props.refreshFunction(response.data.id);
+      } else {
+        alert("댓글 작성에 실패했습니다.");
+      }
+    });
+  };
 
   const handleChange = (event) => {
     setComment(event.currentTarget.value);
@@ -39,7 +39,7 @@ function Comments(props) {
     };
 
     if (userId !== "") {
-    //   fetchComments(variables);
+      fetchComments(variables);
     } else {
       alert("로그인이 필요한 기능입니다.");
     }

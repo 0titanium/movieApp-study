@@ -3,7 +3,7 @@ import { Comment, Avatar, Button, Input, Modal } from "antd";
 import Axios from "axios";
 import { useSelector } from "react-redux";
 import { getCookie } from "../../../../utils/getCookie";
-// import LikeDislikes from "./LikeDislikes";
+import LikesDislikes from "./LikesDislikes";
 import { COMMENT_SERVER } from "../../../../Config";
 import { DeleteFilled } from "@ant-design/icons";
 
@@ -16,33 +16,33 @@ function SingleComment(props) {
   const [CommentValue, setCommentValue] = useState("");
   const [OpenReply, setOpenReply] = useState(false);
 
-//   const fetchComments = (variables) => {
-//     Axios.post(`${COMMENT_SERVER}/saveComment`, variables).then((response) => {
-//       if (response.data.success) {
-//         setCommentValue("");
-//         setOpenReply(!OpenReply);
-//         props.refreshFunction(response.data.id);
-//       } else {
-//         alert("댓글 입력에 실패했습니다.");
-//       }
-//     });
-//   };
+  const fetchComments = (variables) => {
+    Axios.post(`${COMMENT_SERVER}/saveComment`, variables).then((response) => {
+      if (response.data.success) {
+        setCommentValue("");
+        setOpenReply(!OpenReply);
+        props.refreshFunction(response.data.id);
+      } else {
+        alert("댓글 입력에 실패했습니다.");
+      }
+    });
+  };
 
-//   const fetchDeleteComment = (variables) => {
-//     Axios.post(`${COMMENT_SERVER}/deleteComment`, variables).then(
-//       (response) => {
-//         if (response.data.success) {
-//           setTimeout(() => {
-//             setVisible(false);
-//             setConfirmLoading(false);
-//           }, 2000);
-//           props.refreshFunction([]);
-//         } else {
-//           alert("댓글 삭제에 실패했습니다.");
-//         }
-//       }
-//     );
-//   };
+  const fetchDeleteComment = (variables) => {
+    Axios.post(`${COMMENT_SERVER}/deleteComment`, variables).then(
+      (response) => {
+        if (response.data.success) {
+          setTimeout(() => {
+            setVisible(false);
+            setConfirmLoading(false);
+          }, 2000);
+          props.refreshFunction([]);
+        } else {
+          alert("댓글 삭제에 실패했습니다.");
+        }
+      }
+    );
+  };
 
   const handleChange = (event) => {
     setCommentValue(event.currentTarget.value);
@@ -63,7 +63,7 @@ function SingleComment(props) {
     };
 
     if (userId !== "") {
-    //   fetchComments(variables);
+      fetchComments(variables);
     } else {
       alert("로그인이 필요한 기능입니다.");
     }
@@ -92,7 +92,7 @@ function SingleComment(props) {
 
     setModalText("삭제하시겠습니까?");
     setConfirmLoading(true);
-    // fetchDeleteComment(deleteInfo);
+    fetchDeleteComment(deleteInfo);
     // setTimeout(() => {
     //   setVisible(false);
     //   setConfirmLoading(false);
@@ -101,7 +101,7 @@ function SingleComment(props) {
   };
 
   const actions = [
-    // <LikeDislikes comment commentId={props.comment._id} userId={userId} />,
+    <LikesDislikes comment commentId={props.comment._id} userId={userId} isLogin={props.isLogin}/>,
     <span onClick={openReply} key="comment-basic-reply-to">
       Reply to
     </span>,
