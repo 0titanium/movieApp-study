@@ -22,17 +22,9 @@ function LikeDislikes(props) {
 
   // video like, reply like, not login user
   if (props.postId) {
-    if (props.userId === "" || props.userId === userId) {
-      variable = { postId: props.postId };
-    } else {
-      variable = { postId: props.postId, userId: props.userId };
-    }
+    variable = { postId: props.postId, userId: props.userId };
   } else {
-    if (props.userId === "") {
-      variable = { commentId: props.commentId };
-    } else {
-      variable = { commentId: props.commentId, userId: props.userId };
-    }
+    variable = { commentId: props.commentId, userId: props.userId };
   }
 
   const fetchLikesNum = (variable) => {
@@ -137,9 +129,8 @@ function LikeDislikes(props) {
   }, []);
 
   const onLike = () => {
-    if (!isLogin) {
+    if (!userId) {
       alert("로그인이 필요한 기능입니다.");
-    } else if (props.userTo._id === userId) {
     } else {
       if (LikeAction === null) {
         fetchLike(variable);
@@ -150,9 +141,8 @@ function LikeDislikes(props) {
   };
 
   const onDisLike = () => {
-    if (!isLogin) {
+    if (!userId) {
       alert("로그인이 필요한 기능입니다.");
-    } else if (props.userTo._id === userId) {
     } else {
       if (DislikeAction === null) {
         fetchDisLike(variable);
