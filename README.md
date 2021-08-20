@@ -150,7 +150,7 @@
       - "/logout"
 
 
-   - "/api/favorite" (subsRouter)
+   - "/api/favorite" (favoriteRouter)
       - "/favoriteNumber"
       - "/favorited"
       - "/removeFromFavorite"
