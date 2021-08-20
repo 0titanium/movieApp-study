@@ -4,6 +4,192 @@
 #### study with https://github.com/jaewonhimnae/react-movie-app-ko
 
 
+##### movieApp-study
+
+
+- web site that provide movie information
+
+
+##### Tech stack
+
+
+- frontend: html, css, react, redux 
+
+
+- backend: nodejs, expressjs, mongodb atlas
+
+
+##### functions
+
+
+- ( ): lectures functions,  { }: personally added functions
+
+
+- (user register, login, logout, authentication)
+
+
+- (display movies, display a movie info) 
+
+
+- (add to user's favorites, display favorites, display favorites number, cancel favorites)
+
+
+- (add comments, add comments to reply), {remove comments}
+
+
+- (view likes & dislikes, up or down likes & dislikes)
+
+
+##### folder structures
+
+
+- client
+
+<pre>
+.
+|-- README.md
+|-- public
+|   |-- favicon.ico
+|   |-- index.html
+|   |-- logo192.png
+|   |-- logo512.png
+|   |-- manifest.json
+|   `-- robots.txt
+|-- src
+|   |-- App.css
+|   |-- App.js
+|   |-- Config.js
+|   |-- _actions
+|   |   |-- types.js
+|   |   `-- user_action.js
+|   |-- _reducers
+|   |   |-- index.js
+|   |   `-- user_reducer.js
+|   |-- components
+|   |   `-- views
+|   |       |-- FavoritePage
+|   |       |   |-- FavoritePage.css
+|   |       |   `-- FavoritePage.js
+|   |       |-- Footer
+|   |       |   `-- Footer.js
+|   |       |-- LandingPage
+|   |       |   |-- LandingPage.js
+|   |       |   `-- Sections
+|   |       |       `-- MainImage.js
+|   |       |-- LoginPage
+|   |       |   `-- LoginPage.js
+|   |       |-- MovieDetail
+|   |       |   |-- MovieDetail.js
+|   |       |   `-- Sections
+|   |       |       |-- Comments.js
+|   |       |       |-- Favorite.js
+|   |       |       |-- LikesDislikes.js
+|   |       |       |-- MovieInfo.js
+|   |       |       |-- ReplyComment.js
+|   |       |       `-- SingleComment.js
+|   |       |-- NavBar
+|   |       |   |-- NavBar.js
+|   |       |   `-- Sections
+|   |       |       |-- LeftMenu.js
+|   |       |       |-- Navbar.css
+|   |       |       `-- RightMenu.js
+|   |       |-- RegisterPage
+|   |       |   `-- RegisterPage.js
+|   |       `-- commons
+|   |           `-- GridCards.js
+|   |-- hoc
+|   |   `-- auth.js
+|   |-- index.css
+|   |-- index.js
+|   |-- reportWebVitals.js
+|   |-- setupProxy.js
+|   |-- setupTests.js
+|   `-- utils
+|       `-- getCookie.js
+`-- yarn.lock
+
+</pre>
+
+
+- server
+
+<pre>
+.
+|-- config
+|   |-- dev.js
+|   |-- key.js
+|   `-- prod.js
+|-- index.js
+|-- middleware
+|   `-- auth.js
+|-- models
+|   |-- Comment.js
+|   |-- Dislike.js
+|   |-- Favorite.js
+|   |-- Like.js
+|   `-- User.js
+`-- routes
+    |-- comments.js
+    |-- favorite.js
+    |-- likes.js
+    `-- users.js
+
+</pre>
+
+
+##### Backend architecture
+
+
+- Routes / endpoints
+
+
+   - "/api/users" (userRoutes)
+      - "/register"
+      - "/login"
+      - "/auth"
+      - "/logout"
+
+
+   - "/api/favorite" (subsRouter)
+      - "/favoriteNumber"
+      - "/favorited"
+      - "/removeFromFavorite"
+      - "/addToFavorite"
+      - "/getFavoriteMovies"
+
+
+   - "/api/comments" (commentRouter)
+      - "/saveComment"
+      - "/getComments"
+      - "/deleteComment"
+
+
+   - "/api/likes" (likeRouter)
+      - "/getLikes"
+      - "/getDislikes"
+      - "/upLike"
+      - "/unLike"
+      - "/upDislike"
+      - "/unDislike"
+
+
+##### Frontend architecture
+
+
+- Redux role
+
+
+   - register -> register button(click) -> dispatch(registerUser) -> store -(previous state, action)-> <-(new state)- user_reducer
+
+   - login -> login button(click) -> dispatch(loginUser) -> store -(previous state, action)-> <-(new state)- user_reducer
+
+
+   - auth() -> enter pages -> dispatch(auth) -> store -(previous state, action)-> <-(new state)- user_reducer
+
+
+   - logout -> logout button(click) -> dispatch(logoutUser) -> store -(previous state, action)-> <-(new state)- user_reducer
+
+
 ***
 
 
